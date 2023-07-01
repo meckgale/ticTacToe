@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: lightgray;
+    align-items: center;
+}
+
+header {
+    height: 10%;
+}
+
+
+footer {
+    height: 5%;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 4rem 4rem 4rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board-tile {
+    border: 0.1rem solid black;
+    background-color: bisque;
+    height: 4rem;
+}
