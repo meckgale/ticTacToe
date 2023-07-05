@@ -29,7 +29,7 @@ const GameBoard = (function() {
     gameBoard.addEventListener('click', function(e) {
         const index = gameBoardArray.indexOf(e.target.id);
         if (index !== -1) {
-          selectedElements[index].textContent = playerMove;
+          selectedElements[index].textContent = 'X';
         }
       });
 })();
