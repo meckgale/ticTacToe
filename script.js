@@ -1,35 +1,75 @@
-const GameBoard = (function() {
-    //Define game board
-    const gameBoard = document.querySelector('.game-board');
-    //Create game board array
-    const gameBoardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
+// const GameBoard = (function() {
+//     //Define game board
+//     const gameBoard = document.querySelector('.game-board');
+//     //Create game board array
+//     const gameBoardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
 
-    //Define each square on the board 
-    const QueryGenerator = (tile) => {
-        return document.querySelector(`#${tile}`);
-    };
+//     //Define each square on the board 
+//     const QueryGenerator = (tile) => {
+//         return document.querySelector(`#${tile}`);
+//     };
 
-    //Select or call each square from array
-    const selectedElements = [];
-    gameBoardArray.map((element) => {
-       selectedElements.push(QueryGenerator(element));
-    });
+//     //Select or call each square from array
+//     const selectedElements = [];
+//     gameBoardArray.map((element) => {
+//        selectedElements.push(QueryGenerator(element));
+//     });
 
-    //Create player object
-    const player = (name) => {
+//     //Create player object
+//     const player = (name) => {
 
-        return { name };
-    };
+//         return { name };
+//     };
 
-    // const player1 = player('player1');
-    // const player2 = player('player2');
+//     // const player1 = player('player1');
+//     // const player2 = player('player2');
 
-    // return { player1, player2 }
+//     // return { player1, player2 }
 
-    gameBoard.addEventListener('click', function(e) {
-        const index = gameBoardArray.indexOf(e.target.id);
-        if (index !== -1) {
-          selectedElements[index].textContent = 'X';
-        }
-      });
+//     let count = 1;
+//     gameBoard.addEventListener('click', function() {
+//       count++;
+//       playerTurn();
+//     });
+
+//     let playerMark;
+//     function playerTurn () {
+//       if (count % 2 == 0) {
+//         playerMark = 'X';
+//       }
+//       else if(count % 2 != 0) {
+//         playerMark = 'O';
+//       }
+//       return playerMark;
+//     };
+
+//     const displayedElements = ['', '', '', '', '', '', '', '', ''];
+//     console.log(displayedElements);
+//     function render() {
+        
+//     }
+
+//     gameBoard.addEventListener('click', function(e) {
+//         const index = gameBoardArray.indexOf(e.target.id);
+//         if (index !== -1 ) {
+//           selectedElements[index].textContent = playerMark;
+//           displayedElements.splice(index, 1, playerMark);
+//           console.log(displayedElements);
+//         }
+//       });
+// })();
+
+///New file
+
+(function() {
+      //Select game board
+      const gameBoard = document.querySelector('.game-board');
+
+      //Define game board array and assign them in DOM
+      const gameBoardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
+      const definedElements = gameBoardArray
+        .map((element) => document.querySelector(`#${element}`));
+
+      //Assign player mark on array
+      const playerArray = ['', '', '', '', '', '', '', '', ''];
 })();
