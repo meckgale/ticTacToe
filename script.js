@@ -62,14 +62,18 @@
 ///New file
 
 (function() {
-      //Select game board
-      const gameBoard = document.querySelector('.game-board');
+  const game = () => {
+          //Select game board
+          const board = document.querySelector('.board');
 
-      //Define game board array and assign them in DOM
-      const gameBoardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
-      const definedElements = gameBoardArray
-        .map((element) => document.querySelector(`#${element}`));
+          //Define game board array and assign them in DOM
+          const boardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
+          const definedElements = boardArray
+            .map((element) => document.querySelector(`#${element}`));
+    
+          //Assign player mark on array
+          const playerArray = ['', '', '', '', '', '', '', '', ''];
 
-      //Assign player mark on array
-      const playerArray = ['', '', '', '', '', '', '', '', ''];
+          return { board, definedElements, playerArray};
+  }
 })();

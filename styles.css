@@ -15,14 +15,14 @@ footer {
     height: 5%;
 }
 
-.game-board {
+.board {
     display: grid;
     grid-template-columns: 4rem 4rem 4rem;
     justify-content: center;
     align-items: center;
 }
 
-.game-board-tile {
+.board-tile {
     border: 0.1rem solid black;
     background-color: bisque;
     height: 4rem;
