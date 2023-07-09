@@ -61,19 +61,42 @@
 
 ///New file
 
-(function() {
-  const game = () => {
-          //Select game board
-          const board = document.querySelector('.board');
-
-          //Define game board array and assign them in DOM
-          const boardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
-          const definedElements = boardArray
-            .map((element) => document.querySelector(`#${element}`));
+const test = (function() {
+  const game = (() => {
+    //Select game board
+    const board = document.querySelector('.board');
     
-          //Assign player mark on array
-          const playerArray = ['', '', '', '', '', '', '', '', ''];
+    //Define game board array and assign them in DOM
+    const boardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
+    const definedElements = boardArray
+      .map((element) => document.querySelector(`#${element}`));   
+    
+      //Assign player mark on array
+    const playerArray = ['', '', '', '', '', '', '', '', ''];
+    
+    return { board, definedElements, boardArray, playerArray};
+  })();
 
-          return { board, definedElements, playerArray};
+  const move = (() => {
+    
+  })();
+
+  const player = (name, mark) => {
+    return {name, mark}
   }
+
+  const player1 = player('player1', 'X');
+  const player2 = player('player2', 'O');
+
+  game.board.addEventListener('click', function(e) {
+    const index = game.boardArray.indexOf(e.target.id);
+    if (index !== -1 ) {
+      game.definedElementsdElements[index].textContent = player1.mark;
+      game.playerArray.splice(index, 1, player1.mark);
+      console.log(game.playerArray);
+    }
+  });
+
+  return { game };
 })();
+console.log(test.game.playerArray);
