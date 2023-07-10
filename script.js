@@ -9,7 +9,7 @@
       .map((element) => document.querySelector(`#${element}`));   
     
       //Assign player mark on array
-    const playerArray = ['', '', '', '', '', '', '', '', ''];
+    let playerArray = ['', '', '', '', '', '', '', '', ''];
 
     let currentPlayerIndex = 0;
 
@@ -47,8 +47,16 @@
       }
       return true;
     };
+
+    const reset = () => {
+      for(let i = 0; i< 9; i++){
+        definedElements[i].textContent = '';
+      };
+      playerArray = ['', '', '', '', '', '', '', '', ''];
+      currentPlayerIndex = 0;
+    };
     
-    return { board, definedElements, boardArray, playerArray, getCurrentPlayer, switchTurn, checkWinner, checkDraw};
+    return { board, definedElements, boardArray, playerArray, getCurrentPlayer, switchTurn, checkWinner, checkDraw, reset};
   })();
 
   const player = (name, mark) => {
@@ -58,7 +66,7 @@
   const player1 = player('player1', 'X');
   const player2 = player('player2', 'O');
 
-  game.board.addEventListener('click', function(e) {
+  game.board.addEventListener('click', (e) => {
     // Check if the clicked tile is valid and not already marked
     const index = game.boardArray.indexOf(e.target.id);
     if (index !== -1 && game.playerArray[index] === '') {
@@ -71,18 +79,19 @@
 
       if(game.checkWinner(currentPlayer.mark)) {
         console.log(currentPlayer.name + " wins!");
+        game.reset();
       }
       else if(game.checkDraw()) {
-        console.log("It's a draw!")
+        console.log("It's a draw!");
+        game.reset();
       }
       else {
         game.switchTurn();
       }
-
-      console.log(game.playerArray);
-      console.log(currentPlayer.mark);
     }
   });
+
+
   return { game };
 })();
 
