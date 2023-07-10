@@ -1,67 +1,4 @@
-// const GameBoard = (function() {
-//     //Define game board
-//     const gameBoard = document.querySelector('.game-board');
-//     //Create game board array
-//     const gameBoardArray = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
-
-//     //Define each square on the board 
-//     const QueryGenerator = (tile) => {
-//         return document.querySelector(`#${tile}`);
-//     };
-
-//     //Select or call each square from array
-//     const selectedElements = [];
-//     gameBoardArray.map((element) => {
-//        selectedElements.push(QueryGenerator(element));
-//     });
-
-//     //Create player object
-//     const player = (name) => {
-
-//         return { name };
-//     };
-
-//     // const player1 = player('player1');
-//     // const player2 = player('player2');
-
-//     // return { player1, player2 }
-
-//     let count = 1;
-//     gameBoard.addEventListener('click', function() {
-//       count++;
-//       playerTurn();
-//     });
-
-//     let playerMark;
-//     function playerTurn () {
-//       if (count % 2 == 0) {
-//         playerMark = 'X';
-//       }
-//       else if(count % 2 != 0) {
-//         playerMark = 'O';
-//       }
-//       return playerMark;
-//     };
-
-//     const displayedElements = ['', '', '', '', '', '', '', '', ''];
-//     console.log(displayedElements);
-//     function render() {
-        
-//     }
-
-//     gameBoard.addEventListener('click', function(e) {
-//         const index = gameBoardArray.indexOf(e.target.id);
-//         if (index !== -1 ) {
-//           selectedElements[index].textContent = playerMark;
-//           displayedElements.splice(index, 1, playerMark);
-//           console.log(displayedElements);
-//         }
-//       });
-// })();
-
-///New file
-
-const test = (function() {
+(() => {
   const game = (() => {
     //Select game board
     const board = document.querySelector('.board');
@@ -73,12 +10,45 @@ const test = (function() {
     
       //Assign player mark on array
     const playerArray = ['', '', '', '', '', '', '', '', ''];
-    
-    return { board, definedElements, boardArray, playerArray};
-  })();
 
-  const move = (() => {
+    let currentPlayerIndex = 0;
+
+    const getCurrentPlayer = () => {
+      return currentPlayerIndex % 2 === 0 ? player1 : player2;
+    };
+
+    const switchTurn = () => {
+      currentPlayerIndex++;
+    };
+
+    const checkWinner = (mark) => {
+      if (
+        (playerArray[0] === mark && playerArray[1] === mark && playerArray[2] === mark) ||
+        (playerArray[3] === mark && playerArray[4] === mark && playerArray[5] === mark) ||
+        (playerArray[6] === mark && playerArray[7] === mark && playerArray[8] === mark) ||
+        (playerArray[0] === mark && playerArray[3] === mark && playerArray[6] === mark) ||
+        (playerArray[1] === mark && playerArray[4] === mark && playerArray[7] === mark) ||
+        (playerArray[2] === mark && playerArray[5] === mark && playerArray[8] === mark) ||
+        (playerArray[0] === mark && playerArray[4] === mark && playerArray[8] === mark) ||
+        (playerArray[2] === mark && playerArray[4] === mark && playerArray[6] === mark) 
+      ) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    };
+
+    const checkDraw = () => {
+      for(let i = 0; i < 9; i++){
+        if(playerArray[i] === ''){
+          return false;
+        }
+      }
+      return true;
+    };
     
+    return { board, definedElements, boardArray, playerArray, getCurrentPlayer, switchTurn, checkWinner, checkDraw};
   })();
 
   const player = (name, mark) => {
@@ -89,14 +59,30 @@ const test = (function() {
   const player2 = player('player2', 'O');
 
   game.board.addEventListener('click', function(e) {
+    // Check if the clicked tile is valid and not already marked
     const index = game.boardArray.indexOf(e.target.id);
-    if (index !== -1 ) {
-      game.definedElementsdElements[index].textContent = player1.mark;
-      game.playerArray.splice(index, 1, player1.mark);
+    if (index !== -1 && game.playerArray[index] === '') {
+      // Get the current player object based on the turn
+      const currentPlayer = game.getCurrentPlayer();
+
+       // Update the DOM and game state with the player's mark
+      game.definedElements[index].textContent = currentPlayer.mark;
+      game.playerArray[index] = currentPlayer.mark;
+
+      if(game.checkWinner(currentPlayer.mark)) {
+        console.log(currentPlayer.name + " wins!");
+      }
+      else if(game.checkDraw()) {
+        console.log("It's a draw!")
+      }
+      else {
+        game.switchTurn();
+      }
+
       console.log(game.playerArray);
+      console.log(currentPlayer.mark);
     }
   });
-
   return { game };
 })();
-console.log(test.game.playerArray);
+
