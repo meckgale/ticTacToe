@@ -22,6 +22,7 @@
 
     const switchTurn = () => {
       currentPlayerIndex++;
+      displayPlayerTurn();
     };
 
     const checkWinner = (mark) => {
@@ -60,6 +61,7 @@
       }
       currentPlayerIndex = 0;
       endGameMessage.textContent = '';
+      displayPlayerTurn();
     };
     
     return { board, endGameMessage, definedElements, boardArray, playerArray, getCurrentPlayer, switchTurn, checkWinner, checkDraw, reset};
@@ -72,21 +74,26 @@
   const player1 = player('Player1', 'X');
   const player2 = player('Player2', 'O');
 
+  const displayPlayerTurn = () => {
+    game.endGameMessage.textContent = game.getCurrentPlayer().name + "'s Turn";
+  };
+  displayPlayerTurn();
   game.board.addEventListener('click', (e) => {
     // Check if the clicked tile is valid and not already marked
     const index = game.boardArray.indexOf(e.target.id);
     // Get the current player object based on the turn
     const currentPlayer = game.getCurrentPlayer();
+
     if (index !== -1 && game.playerArray[index] === '' && game.checkWinner(currentPlayer.mark) !== true) {
        // Update the DOM and game state with the player's mark
       game.definedElements[index].textContent = currentPlayer.mark;
       game.playerArray[index] = currentPlayer.mark;
       if(game.checkWinner(currentPlayer.mark)) {
-        game.endGameMessage.textContent = currentPlayer.name + " wins!";
+        game.endGameMessage.textContent = currentPlayer.name + " Wins!";
         setTimeout(game.reset, 2500);
       }
       else if(game.checkDraw()) {
-        game.endGameMessage.textContent = "It's a draw!";
+        game.endGameMessage.textContent = "It's a Draw!";
         setTimeout(game.reset, 2500);
       }
       else {
