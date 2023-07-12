@@ -4,20 +4,29 @@ body {
     width: 100%;
     background-color: lightgray;
     align-items: center;
+    justify-content: space-between;
 }
 
 header {
     height: 10%;
+    font-size: 2rem;
+}
+
+.endGame {
+    text-align: center;
+    margin-bottom: 10%;
+    font-size: 2rem;
 }
 
 
 footer {
     height: 5%;
+    font-size: 1.5rem;
 }
 
 .board {
     display: grid;
-    grid-template-columns: 4rem 4rem 4rem;
+    grid-template-columns: repeat(3, clamp(6rem, 8rem, 10rem));
     justify-content: center;
     align-items: center;
 }
@@ -25,7 +34,11 @@ footer {
 .board-tile {
     border: 0.1rem solid black;
     background-color: bisque;
-    height: 4rem;
+    height: clamp(6rem, 8rem, 10rem);
     text-align: center;
-    font-size: 2rem;
+    font-size: 5rem;
+}
+
+.board-tile:hover {
+    filter: invert(0.1);
 }
